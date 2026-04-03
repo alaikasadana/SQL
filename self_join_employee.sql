@@ -25,5 +25,4 @@ on e.manager_id = m.employee_id;
 
 use helo;
 
-select job_title , sum(salary) from employee
-group by job_title; 
+
