@@ -1,0 +1,13 @@
+"employee_id";"employee_name";"job_title";"manager_id";"salary"
+1;"Amit";"CEO";0;100000
+2;"Neha";"Manager";1;75000
+3;"Raj";"Manager";1;72000
+4;"Priya";"Team Lead";2;60000
+5;"Vikas";"Team Lead";2;58000
+6;"Sneha";"Developer";4;45000
+7;"Arjun";"Developer";4;43000
+8;"Kavita";"Developer";5;42000
+9;"Rohit";"Intern";6;25000
+10;"Pooja";"Intern";7;24000
+11;"Manish";"HR";2;50000
+12;"Simran";"Accountant";3;52000

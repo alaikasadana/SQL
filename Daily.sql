@@ -1204,3 +1204,297 @@ show indexes from b;
 
 drop index cust_id on b;
 
+select e.employee_name as emp_name , m.employee_name as manager_name from
+employee as e inner join employee as m 
+on e.manager_id = m.employee_id;
+
+-- 	Class 18 
+SELECT * FROM employee;
+
+select e.employee_name as emp , m.employee_name as manager 
+from employee as e inner join employee as m
+on e.manager_id = m.employee_id; 
+
+/* 
+
+MySQL is an RDBMS Tool : because it satifies following conditions
+1) SQL must use to manage the data
+2) Data must be stored in tabular format
+3) concurrency control multiple people can work at a time without any interferance 
+4) Database intergrat voilecen : suppose if i put the constraint unique so before and after the transaction it will be unique only 
+5) It must satisfy the acid properties
+
+but by default MySQL is a DBMS also because of following reasons :
+
+All the conditions of RDBMS and DBMS are same just there's two diffrences 
+1) In RDBMS SQL is used to fetch the data but in DBMS you can use other languages also .
+2) Data should always not be in tabular form it support other ways also 
+
+
+
+RDBMS doest mean that there must be an relation between the tables
+Relation between the table is am feature not a must condition 
+
+
+*/
+
+-- class 19
+use joins;
+drop table a;
+drop table b;
+
+create table A (cust_id int , cust_name varchar(30));
+create table B (order_id int , cust_id int);
+
+alter table A modify cust_id int primary key;
+
+alter table B modify order_id int primary key;
+
+alter table B add constraint 
+foreign key (cust_id) references A(cust_id);
+
+desc b;
+
+
+alter table B drop primary key;
+
+alter table A drop primary key;
+
+
+-- Here we have not defined the constraint name so thats why we have used this command
+alter table B drop foreign key b_ibfk_1;
+
+-- To check constraint name
+SHOW CREATE TABLE B;
+
+drop table c;
+
+create table C (cust_id int primary key , cust_name varchar(30));
+create table d (order_id int primary key , cust_id int);
+
+alter table D add constraint cust_id
+foreign key (cust_id) references c(cust_id);
+
+alter table d drop foreign key cust_id;
+
+
+/* We cant directly send the data from mysql to any other tool
+For it we need ETL(pipeline) 
+
+so we can export(download) the data from the server and then
+we can import it to any other tool we want to
+
+ByDefault it gets download in CSV form
+so throught this CSV file we load in any tool we want to */
+
+create database import;
+use import;
+
+select  * from export;
+
+
+/* IMPORT 
+When i import the data in mysql that time i can import CSV & SQL format only 
+
+suppose if the file is in excel format 
+then we have to convert its format into csv 
+
+From any tool to mysql we can connect for fetching the data 
+but if we want to send the data directly from mysql to the other tool so it is not possible
+we can do it with the help of  - ETL Tool
+*/
+
+-- Class 20
+
+create database Append;
+use Append;
+create table A(cust_id int , cust_name varchar(30));
+insert into A values (1,"A") , (2,"B") , (3,"C");
+
+create table B(cust_id int , cust_name varchar(30));
+insert into B values (3,"C") , (4,"D") , (6,"E");
+
+select * from A;
+select * from B;
+
+select * from A union select * from B;
+
+select * from A union all select * from B;
+
+select * from A intersect select * from B;
+
+select * from A except select * from B;
+
+-- SQL Operators
+
+/* In the Join we perform the merge because the multi tables
+columns are added up but in sql operators we perform the Append
+because under it rows of 1 table is added with the rows of other
+table 
+
+4 types of SQLOperators
+1. Union
+2. Union all
+3. Except
+4. Intersect
+
+While Performing the most of the join the must condn was there that there
+must be a common column between the tables
+Similarly for Sql Operators 2 Condn are must:
+1. The tables must have the same number of columns
+2. The data type of the columns with the other table columns
+must be same  */
+
+-- This is Full Join
+select * from customers as c
+left join 
+orders as o
+on c.customer_id = o.customer_id
+union all
+select * from customers as c
+right join
+orders as o
+on c.customer_id = o.customer_id;
+
+/* 	Now We performing left and right join because we will use them 
+to perform full join with the help of union all */
+
+
+/* We used union all in the place of union because if i use union then
+there is a possibility that it will remove the duplicate rows which are
+informative */
+
+
+/* SQL Operators are of 4 types:
+1. Union : It appends the rows between the tables but it doesnt consist
+the duplicate.
+2. Union all : It also appends the rows between the tables but it
+includes duplicate rows also.
+3. Intersect : It works like inner join but on the basis of rows
+not columns.
+4. Except : It gives the uncommon rows between the columns */
+
+
+create table C(cust_id int , cust_name varchar(30));
+insert into C values (1,"A"), (2,"B") , (3,"C") , (4, "D") , (5 , "E");
+
+select * from C;
+
+alter table C add column cust_per varchar(30);
+
+update C set cust_per = case
+when cust_id <=2 then "good"
+when cust_id between 3 and 4 then "avg"
+when cust_id between 4 and 5 then "exc"
+else 
+"NOthing"
+end;
+
+set sql_safe_updates = 0;
+
+-- class 21
+ -- ACID Properties
+/*RDBMS consists of ACID properties.
+
+Where A means Atomicity, which means once the execution of a transaction is done,
+ then if the system fails, it will either be completely passed or rolled back.
+ 
+Where C means Consistency, which means the data will remain unchanged until we make any change intentionally.
+
+Where I means Isolation, which means that one transaction does not interfere with another transaction.
+
+D means Durability. Under this, once we commit the transaction, even if a system failure occurs,
+ the transaction will be completed.
+But before committing the transaction, if a system failure takes place, then it will be rolled back. */
+
+-- DATE and TIME functions 
+select current_time();
+select current_date();
+select current_user();
+select current_timestamp();
+
+select day("2022-02-12");
+select dayname("2022-01-12");
+select month("2022-03-23");
+select monthname("2023-08-23");
+select year("2024-09-28");
+
+SELECT * FROM employee;
+
+alter table employee add column info varchar(20);
+update employee set info = case
+when salary < 50000 then "under 50"
+when salary  between 50000 and 70000 then "bt 50-70"
+when salary >= 75000 then "above 75"
+
+else 
+"Nothing"
+ end;
+ 
+ -- Use Case Statement
+select * , case 
+when salary < 50000 then "under 50"
+when salary  between 50000 and 75000 then "bt 50-70"
+else 
+"above 75"
+ end
+ as infor from employee;
+ 
+desc employee;
+
+
+select  * , case
+when employee_id between 1 and 5 then "1-5"
+when employee_id between 6 and 10 then "1-6"
+else 
+"above 10"
+end as id_info from employee;
+
+create database helo;
+use helo;
+
+
+SELECT * FROM employee;
+
+select manager_id , count(employee_name)  from employee 
+group by manager_id;
+
+-- Class 22
+Use SUBQUERY;
+
+SELECT * FROM employees;
+
+SELECT * FROM departments;
+
+select max(salary) from employees;
+
+-- co-related subquery
+select * from employees 
+where salary = (select max(salary) from employees);
+
+-- nested subquery
+select max(salary) as high , 
+(select max(salary) from employees 
+where salary < (select max(salary) from employees)) as second_high 
+from employees;
+
+
+select * from (select * from  employees 
+where salary>50000 ) as b
+where employee_id > 105;
+
+
+
+/*
+SubQuery  : A query under a query is subquery 
+
+it has 3 types:
+
+1)corelated subquery : we use it with where cluase 
+
+2)nested / scaler subquery  : this query works at column level and the overall subquery comes under
+ selelct statement multiple select statement
+ 
+3) drived table subquery / inline view subquery : this query is used with from clause thats why we can 
+say it is used to calculate tables and it give the temproary table
+ */

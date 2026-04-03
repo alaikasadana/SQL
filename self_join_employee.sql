@@ -22,3 +22,8 @@ SELECT * FROM employee;
 select e.employee_name as emp_name , m.employee_name as manager_name from
 employee as e inner join employee as m 
 on e.manager_id = m.employee_id;
+
+use helo;
+
+select job_title , sum(salary) from employee
+group by job_title; 

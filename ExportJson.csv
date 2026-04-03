@@ -1,0 +1,12 @@
+[{"employee_id":1, "employee_name":"Amit", "job_title":"CEO", "manager_id":0, "salary":100000},
+ {"employee_id":2, "employee_name":"Neha", "job_title":"Manager", "manager_id":1, "salary":75000},
+ {"employee_id":3, "employee_name":"Raj", "job_title":"Manager", "manager_id":1, "salary":72000},
+ {"employee_id":4, "employee_name":"Priya", "job_title":"Team Lead", "manager_id":2, "salary":60000},
+ {"employee_id":5, "employee_name":"Vikas", "job_title":"Team Lead", "manager_id":2, "salary":58000},
+ {"employee_id":6, "employee_name":"Sneha", "job_title":"Developer", "manager_id":4, "salary":45000},
+ {"employee_id":7, "employee_name":"Arjun", "job_title":"Developer", "manager_id":4, "salary":43000},
+ {"employee_id":8, "employee_name":"Kavita", "job_title":"Developer", "manager_id":5, "salary":42000},
+ {"employee_id":9, "employee_name":"Rohit", "job_title":"Intern", "manager_id":6, "salary":25000},
+ {"employee_id":10, "employee_name":"Pooja", "job_title":"Intern", "manager_id":7, "salary":24000},
+ {"employee_id":11, "employee_name":"Manish", "job_title":"HR", "manager_id":2, "salary":50000},
+ {"employee_id":12, "employee_name":"Simran", "job_title":"Accountant", "manager_id":3, "salary":52000}]
