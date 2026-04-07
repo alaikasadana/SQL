@@ -124,8 +124,6 @@ from employees;
 select * , lag(salary) over( partition by department order by salary desc) as value_fun
 from employees;
 
-select * , lag(salary) over(  order by salary desc) as value_fun
-from employees;
 
 
 
