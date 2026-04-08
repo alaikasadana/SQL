@@ -142,10 +142,12 @@ SQL system does't automatically  normalise the data
 normalisation = breaking one big messy table into small related tables using 
 keys. 
 
+We do the normalization to reduce redundancy to imporve data integraty , avoid anomales(insert , update , delete)
+
 LIST OF NF (Normal Form )
 
 1) 1NF (Atomic values )
-2) 2NF ( no partial dependency )
+2) 2NF ( no partial dependency ) (1NF ki condition satisfy krta h)
 3) 3NF ( no transitive dependency )
 4) BCNF ( boyce codd Normal Form ) , Stronger version of 3NF
 5) 4NF 
@@ -155,6 +157,22 @@ LIST OF NF (Normal Form )
 
 1NF :- each cell should consist a single value and the data 
 should not consist the repeated rows , each row must be unique.
+Here Single value means atomic values .
+
+2NF :-  ( no partial dependency ) a non key attribute dependencen on only  part of composite primary key , not the whole key
+it is partial dependency which should not exist .
+
+Example : student_id    Course_id    student_name   course_name
+this table does not satisfy 2NF Because the student_name completely depends on student_id 
+and the course_name depends on course_id but here we are using CPK which is the combination of student_id and course_id so 
+partial dependency is there. 
+
+Example : Student_id     course_id    marks 
+it satisfy the 2NF condition . Here CPK is built by using Student_id nd course_id and the non key column marks completely depends
+on both the columns . so 2NF condition is satisfied here .
+
+Suppose if we only using primary not a CPK then by default 2NF is satisfied.
+
 
 3NF :- it is already in 2NF and no transitive dependency exist.
 
@@ -162,9 +180,43 @@ meaning all non-key columns depending only on the primary key
 
 3NF is about removing indirect dependency .
 
-helps reduce  redundency and maintain data integrity .alter
+helps reduce  redundency and maintain data integrity .
 
 after 3NF the remaining are used for complex or specialised databases .
 
 after creating the database we can normalise the database later
-but it is harder because the data exist
+but it is harder because the data exist  */
+
+-- class 26
+-- composite primary 
+
+create database normalization;
+use normalization;
+
+create table student(s_id int , Courses varchar(30) , primary key (s_id , courses));
+
+insert into student values(1,"maths") , (1,"science");
+
+desc student;
+
+select * from student;
+
+alter table student drop primary key;
+
+-- composite primary key
+/* in a table the primary key is always single but the foreign keys can be multiple but in some special cases
+a single column primary key is not enough to provide the unique row identification then we have to use composite primary key 
+
+In the CPK (composite primary key) still the primary key is single only but it is the combination of more than one column */
+
+
+/* Database objects or User-Defined objects
+They both are same . These are created by the users to improve the working of database or SQL operations
+example : index , views , procedure , triggers , functions .
+Some database objects are table level and some are Database level  
+
+where as the system defined objects are those which created by the systems. To improve its working and to help in SQL operations
+Example when we run Show databases query that time sql shows some default databases 
+example : sis , performance_information etc these database are created to improve the internal operations or to 
+help in SQL operations.
+*/
